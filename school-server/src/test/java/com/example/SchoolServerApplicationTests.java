@@ -1,8 +1,14 @@
 package com.example;
 
 import com.example.constant.*;
+import com.example.mappers.ToiletMapper;
+import com.example.vo.EchDataOne;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class SchoolServerApplicationTests {
@@ -26,4 +32,18 @@ class SchoolServerApplicationTests {
         System.out.println(HealthEnum.findEnumByName("一般"));
     }
 
+    @Resource
+    ToiletMapper toiletMapper;
+
+    @Test
+    void test(){
+        Map<String,Map<String,Long>> map1 = toiletMapper.selectMap1();
+        Map<String,Map<String,Long>> map2 = toiletMapper.selectMap2();
+        System.out.println(map1.get(1).get("count"));
+        System.out.println(map2.get(1).get("count"));
+        double c1 = (double)map2.get(1).get("count");
+        double c2 = (double)map1.get(1).get("count");
+        System.out.println("=="+c1/c2);
+        System.out.println(map2);
+    }
 }

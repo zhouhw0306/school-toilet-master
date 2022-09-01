@@ -11,10 +11,7 @@ import com.example.po.Toilet;
 import com.example.service.ToiletService;
 import com.example.vo.EchDataOne;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -168,5 +165,36 @@ public class ToiletController {
 
         return newList;
     }
+    /**
+     * 统计图2
+     */
+    @GetMapping("getDataByTu2")
+    public Result getDataByTu2(){
+        Result result = null;
+        try {
+            Map<String,Object> map = toiletService.getDataByTu2();
+            result = Result.success(map);
+        }catch (Exception e){
+            result = Result.error(ResultCode.RESULE_DATA_NONE);
+        }
+        return result;
+    }
 
+    /**
+     * 统计图3
+     */
+    @GetMapping("getDataByTu3")
+    public Result getDataByTu3(){
+        Result result = null;
+        try {
+            QueryWrapper<Toilet> queryWrapper = new QueryWrapper<>();
+            queryWrapper.select("place_no as name,count(*) as value");
+            queryWrapper.groupBy("place_no");
+            List<Map<String, Object>> maps = toiletMapper.selectMaps(queryWrapper);
+            result = Result.success(maps);
+        }catch (Exception e){
+            result = Result.error(ResultCode.RESULE_DATA_NONE);
+        }
+        return result;
+    }
 }
