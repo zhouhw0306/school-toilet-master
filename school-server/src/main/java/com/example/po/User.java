@@ -1,5 +1,7 @@
 package com.example.po;
 
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +20,8 @@ public class User {
     private String password;
     private String nickname;
     private String address;
-    private String create_time;
+    private String createTime;
+
+    @TableField(exist = false)
+    private String token;
 }

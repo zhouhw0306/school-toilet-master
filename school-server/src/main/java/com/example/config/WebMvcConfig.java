@@ -6,10 +6,20 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
+
+/**
+ * @author 24668
+ */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    /**
+     * 跨域配置
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -28,5 +38,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
         paginationInnerInterceptor.setOverflow(true);
         interceptor.addInnerInterceptor(paginationInnerInterceptor);
         return interceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //System.out.println("加载拦截器");
+        //使用拦截器注册表进行添加 自定义拦截器
+        registry.addInterceptor(jwtInterceptor())
+                //添加拦截路径
+                .addPathPatterns("/**")
+                //设置放行路径
+                .excludePathPatterns("/admin/login/status");
+    }
+
+    @Bean
+    public JwtInterceptor jwtInterceptor(){
+        return new JwtInterceptor();
     }
 }

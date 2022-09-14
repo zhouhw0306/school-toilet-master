@@ -42,12 +42,12 @@ export default {
         },
         {
           icon: 'el-icon-document',
-          index: 'Singer',
+          index: 'Remark',
           title: '校园信息'
         },
         {
           icon: 'el-icon-document',
-          index: 'SongList',
+          index: 'Yiqing',
           title: '疫情信息'
         }
       ]

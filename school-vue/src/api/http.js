@@ -19,6 +19,19 @@ if (process.env.NODE_ENV === 'production') {
   axios.defaults.baseURL = 'http://localhost:8888';
 }
 
+//请求拦截器
+axios.interceptors.request.use(config => {
+      //config.headers['Content-type'] = "application/json;charset=utf-8"
+      let user = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : null
+      if (user){
+        config.headers['token'] = user.token; // 设置请求头
+      }
+      return config
+  },error => {
+      return Promise.reject(error)
+  }
+)
+
 // 响应拦截器
 axios.interceptors.response.use(
   response => {

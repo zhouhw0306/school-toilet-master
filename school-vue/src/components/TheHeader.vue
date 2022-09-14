@@ -45,8 +45,8 @@ export default {
   computed: {
     username () {
       let username = ''
-      if (localStorage.getItem('ms_username')) {
-        username = localStorage.getItem('ms_username')
+      if (sessionStorage.getItem('user')) {
+        username = JSON.parse(sessionStorage.getItem('user')).nickname
       } else {
         username = this.name
       }

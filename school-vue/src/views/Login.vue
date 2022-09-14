@@ -1,5 +1,5 @@
 <template>
-  <div class="login-wrap"> 
+  <div class="login-wrap">
     <div class="ms-title">校园坑位管理</div>
     <div class="ms-login">
       <el-form
@@ -58,6 +58,7 @@ export default {
           if (res.code === 0) {
             this.$router.push('/Info')
             this.notify('欢迎回来', 'success')
+            sessionStorage.setItem("user",JSON.stringify(res.data)) //存储用户信息到浏览器
           } else {
             this.notify('登录失败', 'error')
           }

@@ -6,9 +6,8 @@ import com.example.constant.Result;
 import com.example.constant.ResultCode;
 import com.example.po.User;
 import com.example.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.utils.JWTUtil;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,7 +23,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/admin/login/status",method = RequestMethod.POST)
-    public Result login(String username,String password){
+    public Result login(String username, String password){
         Result result = new Result();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username",username);
@@ -34,7 +33,13 @@ public class UserController {
             result.setResultCode(ResultCode.ERROR);
             return result;
         }
+        User user = list.get(0);
+        // 生成token
+        String token = JWTUtil.sign(String.valueOf(user.getId()),user.getPassword());
+        user.setPassword("it's a secret");
+        user.setToken(token);
         result.setResultCode(ResultCode.SUCCESS);
+        result.setData(user);
         return result;
     }
 
