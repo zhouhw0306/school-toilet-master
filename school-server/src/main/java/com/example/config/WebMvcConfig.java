@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.annotation.Resource;
 
 /**
- * @author 24668
+ * @author zhw
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -48,7 +48,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 //添加拦截路径
                 .addPathPatterns("/**")
                 //设置放行路径
-                .excludePathPatterns("/admin/login/status");
+                .excludePathPatterns("/admin/login/status","/api/Code/getVerify");
     }
 
     @Bean

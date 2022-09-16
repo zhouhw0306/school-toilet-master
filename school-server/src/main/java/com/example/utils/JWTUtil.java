@@ -7,13 +7,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.apache.commons.lang3.StringUtils;
-
-
 import java.util.Date;
 
 /**
  *
- * @author
+ * @author zhw
  */
 public class JWTUtil {
 
@@ -64,9 +62,9 @@ public class JWTUtil {
             userId = StringUtils.lowerCase(userId);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withClaim("userId", userId)
-                    .withExpiresAt(DateUtil.offsetHour(new Date(),2))
-                    .sign(algorithm);
+                    .withClaim("userId", userId) // 创建负载
+                    .withExpiresAt(DateUtil.offsetHour(new Date(),2)) // 设置超时日期 2小时
+                    .sign(algorithm); // 创建签名并设置密钥
         } catch (Exception e) {
             return null;
         }

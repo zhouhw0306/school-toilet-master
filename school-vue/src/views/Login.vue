@@ -16,13 +16,30 @@
             type="password"
             placeholder="password"
             v-model="ruleForm.password"
-            @keyup.enter.native="submitForm('ruleForm')"
+            @keyup.enter.native="submitForm()"
           ></el-input>
         </el-form-item>
+
+        <el-form-item label="验证码" prop="checkCode" label-width="70px" style="margin-bottom: 10px">
+          <el-col span="12">
+            <el-input
+              v-model="ruleForm.checkCode"
+              placeholder="请输入验证码"
+              clearable
+              :style="{ width: '100%' }"
+              @keyup.enter.native="submitForm()"
+            >
+            </el-input>
+          </el-col>
+          <el-col span="6" style="margin-left: 20px">
+            <img :src="imgUrl" alt="更换验证码" @click="getVerify()" />
+          </el-col>
+        </el-form-item>
+
+
         <div class="login-btn">
           <el-button type="primary" @click="submitForm">登录</el-button>
         </div>
-        <p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码要写数据库里的。</p>
       </el-form>
     </div>
   </div>
@@ -36,15 +53,16 @@ export default {
   mixins: [mixin],
   data: function () {
     return {
+      imgUrl: "http://localhost:8888/api/Code/getVerify",
       ruleForm: {
         username: 'admin',
-        password: '333'
+        password: '333',
+        checkCode: ''
       },
       rules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
-        ],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        checkCode: [{ required: true, message: ' ', trigger: 'blur' }]
       }
     }
   },
@@ -53,6 +71,8 @@ export default {
       let params = new URLSearchParams()
       params.append('username', this.ruleForm.username)
       params.append('password', this.ruleForm.password)
+      params.append('checkCode', this.ruleForm.checkCode)
+      //登录请求
       getLoginStatus(params)
         .then(res => {
           if (res.code === 0) {
@@ -60,12 +80,17 @@ export default {
             this.notify('欢迎回来', 'success')
             sessionStorage.setItem("user",JSON.stringify(res.data)) //存储用户信息到浏览器
           } else {
-            this.notify('登录失败', 'error')
+            this.getVerify()
+            this.notify(res.msg, 'error')
           }
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    //获取验证码
+    getVerify(){
+      this.imgUrl = "http://localhost:8888/api/Code/getVerify?" + Math.random();
     }
   }
 }
@@ -96,7 +121,7 @@ export default {
   left: 50%;
   top: 50%;
   width: 300px;
-  height: 160px;
+  height: 210px;
   margin: -150px 0 0 -190px;
   padding: 40px;
   border-radius: 5px;

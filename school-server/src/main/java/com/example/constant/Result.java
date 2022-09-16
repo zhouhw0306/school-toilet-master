@@ -7,9 +7,7 @@ import java.util.Map;
 /**
  * api接口数据返回封装
  *
- * @author shimh
- * <p>
- * 2018年1月23日
+ * @author zhw
  */
 public class Result implements Serializable {
 

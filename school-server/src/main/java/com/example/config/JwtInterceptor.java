@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author 24668
+ * @author zhw
  * 验证token
  */
 public class JwtInterceptor implements HandlerInterceptor {
