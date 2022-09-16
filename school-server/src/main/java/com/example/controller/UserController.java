@@ -64,7 +64,7 @@ public class UserController {
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expire", 0);
         //定义图形验证码的长和宽
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(90, 41,4,20);
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(90, 39,4,20);
         String checkCode = lineCaptcha.getCode();
         System.out.println("验证码: "+checkCode);
         session.removeAttribute("checkCode");

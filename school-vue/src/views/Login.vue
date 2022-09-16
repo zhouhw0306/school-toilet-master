@@ -20,7 +20,7 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item label="验证码" prop="checkCode" label-width="70px" style="margin-bottom: 10px">
+        <el-form-item label="验证码" prop="checkCode" label-width="70px" style="margin-bottom: 25px">
           <el-col span="12">
             <el-input
               v-model="ruleForm.checkCode"
@@ -31,7 +31,7 @@
             >
             </el-input>
           </el-col>
-          <el-col span="6" style="margin-left: 20px">
+          <el-col span="9" style="margin-left: 20px;line-height: 0px">
             <img :src="imgUrl" alt="更换验证码" @click="getVerify()" />
           </el-col>
         </el-form-item>
@@ -62,7 +62,7 @@ export default {
       rules: {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        checkCode: [{ required: true, message: ' ', trigger: 'blur' }]
+        checkCode: [{ required: true, message: '请输入密码 ', trigger: 'blur' }]
       }
     }
   },
