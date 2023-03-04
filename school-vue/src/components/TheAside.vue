@@ -38,7 +38,7 @@ export default {
         {
           icon: 'el-icon-document',
           index: 'Consumer',
-          title: '统计图表'
+          title: '实时监控'
         }
       ]
     }

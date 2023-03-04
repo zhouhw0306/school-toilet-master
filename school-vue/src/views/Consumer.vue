@@ -1,26 +1,31 @@
 <template>
   <div style="height: auto;display: flex;flex-wrap: wrap">
-    <div class="tu">
+    <div class="item">
       <div id="chart1" class="ech"></div>
     </div>
-    <div class="tu">
+    <div class="item">
       <div id="chart2" class="ech"></div>
     </div>
-    <div class="tu">
+    <div class="item">
       <div id="chart3" class="ech"></div>
     </div>
+    <div class="item">
+      <div id="he-plugin-standard"></div>
+    </div>
+
   </div>
 </template>
 
 <style>
-.tu{
-  width:600px;
+.item{
+  width:570px;
   height:400px;
   margin:15px;
-  background-color: #f8f7f5;
+  padding: 15px;
+  background-color: #FFFFFF;
 }
 .ech{
-  width:100%;height:400px
+  height:400px
 }
 
 </style>
@@ -31,7 +36,7 @@ import {getDataByTu2} from "../api/index";
 import {getDataByTu3} from "../api/index";
 
 export default {
-    name: 'tu1',
+    name: 'consumer',
     data() {
         return {
             chart1:'',
@@ -40,6 +45,24 @@ export default {
             two:{},
             three:{}
         }
+    },
+    created(){
+      //和风天气插件调用
+      window.WIDGET = {
+        "CONFIG": {
+          "layout": "1",
+          "width": "570",
+          "height": "400",
+          "background": "4",
+          "dataColor": "000000",
+          "backgroundColor": "FFFFFF",
+          "key": "53449b254c6c44ce829c4b32c2d7a014"
+        }
+      };
+      let script = document.createElement("script")
+      script.type = "text/javascript";
+      script.src = "https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"
+      document.getElementsByTagName("head")[0].appendChild(script)
     },
     mounted() {
         this.init()
