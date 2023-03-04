@@ -39,16 +39,6 @@ export default {
           icon: 'el-icon-document',
           index: 'Consumer',
           title: '统计图表'
-        },
-        {
-          icon: 'el-icon-document',
-          index: 'Remark',
-          title: '校园信息'
-        },
-        {
-          icon: 'el-icon-document',
-          index: 'Yiqing',
-          title: '疫情信息'
         }
       ]
     }

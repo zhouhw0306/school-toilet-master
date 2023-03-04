@@ -60,9 +60,6 @@
       <el-button type="primary" size="small" @click="handleAdd"
         >新增<i class="el-icon-plus"></i
       ></el-button>
-      <el-button type="success" size="small"
-        >导入<i class="el-icon-bottom"></i
-      ></el-button>
       <el-button type="warning" size="small" @click="exportTable"
         >导出<i class="el-icon-top"></i
       ></el-button>
@@ -70,14 +67,14 @@
 
     <el-dialog :title="title" :visible.sync="dialogFormVisible" width="30%">
       <el-form v-model="tableOne">
-        <el-form-item label="性别" :label-width="formLabelWidth">
+        <el-form-item label="性别">
           <el-select v-model="tableOne.sex" placeholder="请选择性别">
             <el-option label="男" value="男"></el-option>
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="类型" :label-width="formLabelWidth">
+        <el-form-item label="类型">
           <el-select v-model="tableOne.type" placeholder="请选择类型">
             <el-option label="小便池" value="小便池"></el-option>
             <el-option label="蹲坑" value="蹲坑"></el-option>
@@ -85,7 +82,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="大楼" :label-width="formLabelWidth">
+        <el-form-item label="大楼">
           <el-select v-model="tableOne.placeNo" placeholder="请选择大楼">
             <el-option label="启德楼" value="启德楼"></el-option>
             <el-option label="爱心楼" value="爱心楼"></el-option>
@@ -95,7 +92,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="详细地址" :label-width="formLabelWidth">
+        <el-form-item label="详细地址">
           <el-input
             v-model="tableOne.placeDetail"
             autocomplete="off"
@@ -105,7 +102,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitform">确 定</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -321,15 +318,17 @@ export default {
         });
     },
     handleEdit(row) {
-      (this.dialogFormVisible = true), (this.title = "编辑");
-      this.tableOne = JSON.parse(JSON.stringify(row));
+      this.dialogFormVisible = true
+      this.title = "编辑"
+      this.tableOne = JSON.parse(JSON.stringify(row))
     },
     handleAdd() {
-      this.tableOne = { sex: "", type: "", placeNo: "", placeDetail: "" };
-      (this.dialogFormVisible = true), (this.title = "新增");
+      this.tableOne = { sex: "", type: "", placeNo: "", placeDetail: "" }
+      this.dialogFormVisible = true
+      this.title = "新增"
     },
     //更新or删除
-    submitform() {
+    submitForm() {
       updateOrAdd(this.tableOne)
         .then((res) => {
           if (res.code === 0) {

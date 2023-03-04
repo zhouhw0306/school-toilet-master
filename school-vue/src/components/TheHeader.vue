@@ -39,7 +39,7 @@ export default {
     return {
       collapse: true,
       fullscreen: false,
-      name: 'admin'
+      name: '未登录'
     }
   },
   computed: {
@@ -62,7 +62,7 @@ export default {
     // 用户名下拉菜单选择事件
     handleCommand (command) {
       if (command === 'loginout') {
-        localStorage.removeItem('ms_username')
+        sessionStorage.removeItem('user')
         this.$router.push('/')
       }
     },

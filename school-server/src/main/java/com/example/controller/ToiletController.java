@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zhou
+ */
 @RestController
 @RequestMapping("/api/toilet")
 public class ToiletController {
@@ -175,7 +178,7 @@ public class ToiletController {
             Map<String,Object> map = toiletService.getDataByTu2();
             result = Result.success(map);
         }catch (Exception e){
-            result = Result.error(ResultCode.RESULE_DATA_NONE);
+            result = Result.error(ResultCode.RESULT_DATA_NONE);
         }
         return result;
     }
@@ -193,7 +196,7 @@ public class ToiletController {
             List<Map<String, Object>> maps = toiletMapper.selectMaps(queryWrapper);
             result = Result.success(maps);
         }catch (Exception e){
-            result = Result.error(ResultCode.RESULE_DATA_NONE);
+            result = Result.error(ResultCode.RESULT_DATA_NONE);
         }
         return result;
     }

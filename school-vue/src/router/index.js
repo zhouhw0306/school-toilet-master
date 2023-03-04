@@ -20,16 +20,6 @@ export default new Router({
           path: '/Consumer',
           component: resolve => require(['../views/Consumer.vue'], resolve),
           meta: { title: 'Consumer' }
-        },
-        {
-          path: '/remark',
-          component: resolve => require(['../views/Remark.vue'], resolve),
-          meta: { title: 'Remark' }
-        },
-        {
-          path: '/Yiqing',
-          component: resolve => require(['../views/Yiqing.vue'], resolve),
-          meta: { title: 'Remark' }
         }
       ]
     },

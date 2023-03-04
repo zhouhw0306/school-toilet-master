@@ -9,13 +9,13 @@
         class="demo-ruleForm"
       >
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="username"></el-input>
+          <el-input v-model.trim="ruleForm.username" placeholder="username"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             type="password"
             placeholder="password"
-            v-model="ruleForm.password"
+            v-model.trim="ruleForm.password"
             @keyup.enter.native="submitForm()"
           ></el-input>
         </el-form-item>
@@ -23,7 +23,7 @@
         <el-form-item label="验证码" prop="checkCode" label-width="70px" style="margin-bottom: 25px">
           <el-col span="12">
             <el-input
-              v-model="ruleForm.checkCode"
+              v-model.trim="ruleForm.checkCode"
               placeholder="请输入验证码"
               clearable
               :style="{ width: '100%' }"
@@ -68,25 +68,28 @@ export default {
   },
   methods: {
     submitForm () {
-      let params = new URLSearchParams()
-      params.append('username', this.ruleForm.username)
-      params.append('password', this.ruleForm.password)
-      params.append('checkCode', this.ruleForm.checkCode)
-      //登录请求
-      getLoginStatus(params)
-        .then(res => {
-          if (res.code === 0) {
-            this.$router.push('/Info')
-            this.notify('欢迎回来', 'success')
-            sessionStorage.setItem("user",JSON.stringify(res.data)) //存储用户信息到浏览器
-          } else {
-            this.getVerify()
-            this.notify(res.msg, 'error')
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$refs.ruleForm.validate(validate=> {
+        if (!validate) return;
+        let params = new URLSearchParams()
+        params.append('username', this.ruleForm.username)
+        params.append('password', this.ruleForm.password)
+        params.append('checkCode', this.ruleForm.checkCode)
+        //登录请求
+        getLoginStatus(params)
+          .then(res => {
+            if (res.code === 0) {
+              this.$router.push('/Info')
+              this.notify('欢迎回来', 'success')
+              sessionStorage.setItem("user",JSON.stringify(res.data)) //存储用户信息到浏览器
+            } else {
+              this.getVerify()
+              this.notify(res.msg, 'error')
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      })
     },
     //获取验证码
     getVerify(){
@@ -99,9 +102,7 @@ export default {
 <style scoped>
 .login-wrap {
   position: relative;
-  background: url('../assets/img/background.png');
-  background-attachment: fixed;
-  background-position: center;
+  background: url('../assets/img/background.png') fixed center;
   background-size: cover;
   width: 100%;
   height: 100%;

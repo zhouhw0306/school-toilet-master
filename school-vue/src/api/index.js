@@ -1,5 +1,5 @@
 /* eslint-disable*/
-import { get, post, deletes } from './http'
+import { get, post} from './http'
 
 // =======================> 用户 API
 // 是否登录成功
